@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
@@ -23,6 +24,21 @@ public class EnemyMovement : MonoBehaviour
     private float knockbackEndTime;
     private float knockbackDirection;
 
+    [Header("Chase")]
+    [SerializeField] private Transform player;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float detectionRange = 3f;
+    [SerializeField] private float loseRange = 4f;
+    [SerializeField] private float attackStopDistance = 0.5f;
+    [SerializeField] private float verticalDetectionRange = 1.5f;
+    [SerializeField] private float wallCheckDistance = 0.15f;
+    [SerializeField] private float groundCheckDistance = 0.25f;
+
+
+    private CapsuleCollider2D bodyCollider;
+    private bool isChasing;
+    private bool isReturning;
+    private float returnPositionX;
 
     private bool isMovementPaused;
     private float movementPauseEndTime;
@@ -32,6 +48,8 @@ public class EnemyMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         startingScale = transform.localScale;
+
+        bodyCollider = GetComponent<CapsuleCollider2D>();
 
         float halfWidth = patrolWidth / 2f;
         leftPosition = transform.position.x - halfWidth;
@@ -69,6 +87,20 @@ public class EnemyMovement : MonoBehaviour
             isMovementPaused = false;
         }
 
+        UpdateChaseState();
+        if (isChasing)
+        {
+            Chase();
+            return;
+        }
+
+        if (isReturning)
+        {
+            ReturnToPatrol();
+            return;
+        }
+
+
         if (isIdle)
         {
             WaitForTurning();
@@ -77,10 +109,166 @@ public class EnemyMovement : MonoBehaviour
         Run();
     }
 
+    private void UpdateChaseState()
+    {
+        if (isReturning)
+        {
+            return;
+        }
+
+        if (player == null)
+        {
+            StopChasingAndReturn();
+            return;
+        }
+
+        float horizontalDistance = Mathf.Abs(player.position.x - transform.position.x);
+        float verticalDistance = Mathf.Abs(player.position.y - transform.position.y);
+
+        if (!isChasing)
+        {
+            bool playerIsClose = horizontalDistance <= detectionRange && verticalDistance <= verticalDetectionRange;
+            if (playerIsClose)
+            {
+                isChasing = true;
+                isReturning = false;
+                isIdle = false;
+            }
+            return;
+        }
+
+        bool playerIsFar = horizontalDistance > loseRange || verticalDistance > verticalDetectionRange;
+        if (playerIsFar)
+        {
+            StopChasingAndReturn();
+        }
+
+    }
+
+    private void Chase()
+    {
+        if (player == null)
+        {
+            StopChasingAndReturn();
+            return;
+        }
+        float distanceToPlayerX = Mathf.Abs(player.position.x - transform.position.x);
+
+        if (distanceToPlayerX <= attackStopDistance)
+        {
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            animator.SetBool("isRunning", false);
+            return;
+        }
+        float directionToPlayerX = player.position.x - transform.position.x;
+        int chaseDirection = directionToPlayerX > 0f ? 1 : -1;
+
+        if (!CanMoveInDirection(chaseDirection))
+        {
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            animator.SetBool("isRunning", false);
+            StopChasingAndReturn();
+            return;
+        }
+
+        rb.linearVelocity = new Vector2(moveSpeed * chaseDirection, rb.linearVelocity.y);
+        animator.SetBool("isRunning", true);
+        FlipSprite();
+    }
+
+    private bool CanMoveInDirection(int direction)
+    {
+        Vector2 wallCheckOrigin = bodyCollider.bounds.center;
+
+        float wallRayDistance = bodyCollider.bounds.extents.x + wallCheckDistance;
+
+        RaycastHit2D wallHit = Physics2D.Raycast(
+            wallCheckOrigin,
+            Vector2.right * direction,
+            wallRayDistance,
+            groundLayer
+        );
+
+        Vector2 groundCheckOrigin = new Vector2(
+            bodyCollider.bounds.center.x +
+                direction * (bodyCollider.bounds.extents.x + wallCheckDistance),
+            bodyCollider.bounds.min.y + 0.05f
+        );
+
+        RaycastHit2D groundHit = Physics2D.Raycast(
+            groundCheckOrigin,
+            Vector2.down,
+            groundCheckDistance,
+            groundLayer
+        );
+
+        bool hasWallAhead = wallHit.collider != null;
+        bool hasGroundAhead = groundHit.collider != null;
+
+        return !hasWallAhead && hasGroundAhead;
+    }
+
+    private void StopChasingAndReturn()
+    {
+        isChasing = false;
+
+        returnPositionX = Mathf.Clamp(
+            transform.position.x,
+            leftPosition,
+            rightPosition
+        );
+
+        isReturning =
+            transform.position.x < leftPosition ||
+            transform.position.x > rightPosition;
+    }
+
+    private void ReturnToPatrol()
+    {
+        float distanceToReturnPosition =
+            returnPositionX - transform.position.x;
+
+        if (Mathf.Abs(distanceToReturnPosition) <= 0.05f)
+        {
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            isReturning = false;
+
+            moveDirection = returnPositionX <= leftPosition ? 1 : -1;
+            StartRunning();
+            return;
+        }
+
+        int returnDirection = distanceToReturnPosition > 0f ? 1 : -1;
+
+        if (!CanMoveInDirection(returnDirection))
+        {
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            animator.SetBool("isRunning", false);
+            return;
+        }
+
+        rb.linearVelocity = new Vector2(
+            moveSpeed * returnDirection,
+            rb.linearVelocity.y
+        );
+
+        animator.SetBool("isRunning", true);
+        FlipSprite();
+    }
+
+
     private void Run()
     {
         rb.linearVelocity = new Vector2(moveSpeed * moveDirection, rb.linearVelocity.y);
+        if (!CanMoveInDirection(moveDirection))
+        {
+            StartIdle();
+            return;
+        }
+
+        FlipSprite();
         animator.SetBool("isRunning", true);
+
 
         bool reachedLeft = moveDirection < 0 && transform.position.x <= leftPosition;
         bool reachedRight = moveDirection > 0 && transform.position.x >= rightPosition;
@@ -145,7 +333,6 @@ public class EnemyMovement : MonoBehaviour
 
     public void ApplyKnockback(float direction)
     {
-        // Store the direction for the entire knockback duration.
         knockbackDirection = Mathf.Sign(direction);
 
         isKnockback = true;
