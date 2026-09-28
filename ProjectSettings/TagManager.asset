@@ -15,7 +15,7 @@ TagManager:
   - Player
   - Background
   - Enemies
-  - 
+  - Diamond
   - 
   - 
   - 
@@ -49,6 +49,9 @@ TagManager:
     locked: 0
   - name: Platform
     uniqueID: 2166020603
+    locked: 0
+  - name: Collectable
+    uniqueID: 2081970075
     locked: 0
   - name: Enemies
     uniqueID: 737105651

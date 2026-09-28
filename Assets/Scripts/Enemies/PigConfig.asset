@@ -14,4 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyConfig
   maximumHeart: 3
   contactDamageUnits: 1
+  attackDamageUnits: 1
   moveSpeed: 2
+  droppedDiamondPrefab: {fileID: 204064070240743899, guid: d9a19ef4b8885fc4ca56ce08d9a2436d, type: 3}
+  minimumDiamondDrop: 1
+  maximumDiamondDrop: 3
+  horizontalDropForce: 2
+  verticalDropForceRange: {x: 3, y: 5}

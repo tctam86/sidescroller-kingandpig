@@ -156,12 +156,12 @@ TextureImporter:
       name: Big Diamond Idle (18x14)_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 1
-        width: 14
-        height: 12
+        x: 0
+        y: 0
+        width: 18
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -178,12 +178,12 @@ TextureImporter:
       name: Big Diamond Idle (18x14)_1
       rect:
         serializedVersion: 2
-        x: 22
-        y: 1
-        width: 14
-        height: 12
+        x: 18
+        y: 0
+        width: 18
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -200,12 +200,12 @@ TextureImporter:
       name: Big Diamond Idle (18x14)_2
       rect:
         serializedVersion: 2
-        x: 40
-        y: 1
-        width: 14
-        height: 12
+        x: 36
+        y: 0
+        width: 18
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -222,12 +222,12 @@ TextureImporter:
       name: Big Diamond Idle (18x14)_3
       rect:
         serializedVersion: 2
-        x: 58
-        y: 1
-        width: 14
-        height: 12
+        x: 54
+        y: 0
+        width: 18
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -244,12 +244,12 @@ TextureImporter:
       name: Big Diamond Idle (18x14)_4
       rect:
         serializedVersion: 2
-        x: 76
-        y: 1
-        width: 14
-        height: 12
+        x: 72
+        y: 0
+        width: 18
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -266,12 +266,12 @@ TextureImporter:
       name: Big Diamond Idle (18x14)_5
       rect:
         serializedVersion: 2
-        x: 94
-        y: 1
-        width: 14
-        height: 12
+        x: 90
+        y: 0
+        width: 18
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -288,12 +288,12 @@ TextureImporter:
       name: Big Diamond Idle (18x14)_6
       rect:
         serializedVersion: 2
-        x: 112
-        y: 1
-        width: 14
-        height: 12
+        x: 108
+        y: 0
+        width: 18
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -310,12 +310,12 @@ TextureImporter:
       name: Big Diamond Idle (18x14)_7
       rect:
         serializedVersion: 2
-        x: 130
-        y: 1
-        width: 14
-        height: 12
+        x: 126
+        y: 0
+        width: 18
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -332,12 +332,12 @@ TextureImporter:
       name: Big Diamond Idle (18x14)_8
       rect:
         serializedVersion: 2
-        x: 148
-        y: 1
-        width: 14
-        height: 12
+        x: 144
+        y: 0
+        width: 18
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -354,12 +354,12 @@ TextureImporter:
       name: Big Diamond Idle (18x14)_9
       rect:
         serializedVersion: 2
-        x: 166
-        y: 1
-        width: 14
-        height: 12
+        x: 162
+        y: 0
+        width: 18
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -376,7 +376,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: aef151b97edb49f46b3551cdbc80a877
     internalID: 0
     vertices: []
     indices: 
@@ -384,7 +384,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":18.0,"y":14.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Big Diamond Idle (18x14)_0: -4658123360840285283
       Big Diamond Idle (18x14)_1: -9132469165398134140

@@ -11,6 +11,12 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     [SerializeField] private float invulnerabilityDuration = 0.75f;
 
+    [Header("Camera Shake")]
+    [SerializeField] private float horizontalShakeStrength = 0.3f;
+
+    [SerializeField] private float verticalShakeStrength = 0.1f;
+
+
     public int CurrentHealthUnits { get; private set; }
 
     public int MaximumHealthUnits => maximumHeart * UnitsPerHeart;
@@ -26,6 +32,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     private PlayerInput playerInput;
     private Rigidbody2D rb;
+    private CinemachineImpulseSource impulseSource;
+
 
     private void Awake()
     {
@@ -34,6 +42,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         playerMovement = GetComponent<PlayerMovement>();
         playerInput = GetComponent<PlayerInput>();
         rb = GetComponent<Rigidbody2D>();
+        impulseSource = GetComponent<CinemachineImpulseSource>();
+
         
     }
 
@@ -47,10 +57,22 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         nextDamageTime = Time.time + invulnerabilityDuration;
         animator.SetTrigger("Hit");
 
-        GetComponent<CinemachineImpulseSource>()?.GenerateImpulse(0.35f);
+        float knockbackOffset = transform.position.x - attackerPositionX;
+        float shakeDirection = Mathf.Sign(knockbackOffset);
 
-        float knockbackDirection = transform.position.x - attackerPositionX;
-        playerMovement.ApplyKnockback(knockbackDirection);
+        if (Mathf.Approximately(shakeDirection, 0f))
+        {
+            shakeDirection = Mathf.Sign(transform.localScale.x);
+        }
+
+        Vector3 shakeVelocity = new Vector3(
+            shakeDirection * horizontalShakeStrength,
+            verticalShakeStrength,
+            0f
+        );
+
+        impulseSource?.GenerateImpulse(shakeVelocity);
+        playerMovement.ApplyKnockback(knockbackOffset);
 
         CurrentHealthUnits = Mathf.Max(CurrentHealthUnits - damage, 0);
         OnHealthChanged?.Invoke(CurrentHealthUnits);
