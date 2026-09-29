@@ -4,6 +4,13 @@ public class DiamondPickup : MonoBehaviour
 {
     [SerializeField] private int diamondValue = 1;
     private bool wasCollected = false;
+    [SerializeField] private float pickupDelay = 0f;
+    private float pickupAvailableTime;
+
+    private void Awake()
+    {
+        pickupAvailableTime = Time.time + pickupDelay;
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         TryCollect(other.gameObject);
@@ -16,6 +23,7 @@ public class DiamondPickup : MonoBehaviour
 
     private void TryCollect(GameObject other)
     {
+        if (Time.time < pickupAvailableTime) { return; }
         if (wasCollected) { return; }
 
         if (!other.CompareTag("Player"))

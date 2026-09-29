@@ -16,7 +16,7 @@ TagManager:
   - Background
   - Enemies
   - Diamond
-  - 
+  - Door
   - 
   - 
   - 
@@ -55,6 +55,9 @@ TagManager:
     locked: 0
   - name: Enemies
     uniqueID: 737105651
+    locked: 0
+  - name: Door
+    uniqueID: 1057731351
     locked: 0
   - name: Player
     uniqueID: 25306615

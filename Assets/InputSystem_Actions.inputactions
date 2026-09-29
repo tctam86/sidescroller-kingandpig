@@ -40,9 +40,9 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "b5c844ee-7992-4495-b219-679fdb1b12db",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Hold",
+                    "interactions": "",
                     "initialStateCheck": false,
                     "priority": 0
                 },
