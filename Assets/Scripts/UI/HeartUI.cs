@@ -17,12 +17,27 @@ public class HeartUI : MonoBehaviour
 
     public void Show()
     {
+        StopAllCoroutines();
+        if (animator != null)
+        {
+            animator.ResetTrigger("Hit");
+
+            animator.Play("Idle", 0, 0f);
+        }
+
         image.enabled = true;
     }
 
+
+
     public void PlayHitAndHide()
     {
+        if (!image.enabled)
+        {
+            return;
+        }
         StartCoroutine(HitSequence());
+
     }
 
     private IEnumerator HitSequence()

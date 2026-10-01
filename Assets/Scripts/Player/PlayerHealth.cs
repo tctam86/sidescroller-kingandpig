@@ -44,7 +44,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         rb = GetComponent<Rigidbody2D>();
         impulseSource = GetComponent<CinemachineImpulseSource>();
 
-        
+
     }
 
     public void TakeDamage(int damage, float attackerPositionX)
@@ -105,4 +105,20 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
+
+    public bool Heal(int amount)
+    {
+        if (isDead || amount <= 0)
+        {
+            return false;
+        }
+        CurrentHealthUnits = Mathf.Min(CurrentHealthUnits + amount, MaximumHealthUnits);
+        OnHealthChanged?.Invoke(CurrentHealthUnits);
+
+        return true;
+    }
+
+
+
 }
