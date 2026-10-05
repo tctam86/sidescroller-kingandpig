@@ -1,13 +1,31 @@
 fileFormatVersion: 2
-guid: 286da7b735a6b5a43b717ba7337d62b5
+guid: 64ff3c3c82fa0b14a8152d794148ea88
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7982368223760686067
-    second: Hit (38x28)_0
+      213: -2313838572340273266
+    second: BossHealthBar_0
   - first:
-      213: -8445486696707508763
-    second: Hit (38x28)_1
+      213: 2557461980713412998
+    second: BossHealthBar_1
+  - first:
+      213: -792899567622094532
+    second: BossHealthBar_2
+  - first:
+      213: -2002048896002541865
+    second: BossHealthBar_3
+  - first:
+      213: -7041644852017489511
+    second: BossHealthBar_4
+  - first:
+      213: -2596345464659068251
+    second: BossHealth_Fill
+  - first:
+      213: 6800201392093632714
+    second: BossHealth_Background
+  - first:
+      213: -6076697625493419262
+    second: BossHealth_Preview
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -78,7 +96,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -129,13 +147,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Hit (38x28)_0
+      name: BossHealth_Fill
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 38
-        height: 28
+        x: 139
+        y: 62
+        width: 1703
+        height: 124
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -144,20 +162,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d04e064946ee83190800000000000000
-      internalID: -7982368223760686067
+      spriteID: 5aabcc05e8de7fbd0800000000000000
+      internalID: -2596345464659068251
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hit (38x28)_1
+      name: BossHealth_Background
       rect:
         serializedVersion: 2
-        x: 38
-        y: 0
-        width: 38
-        height: 28
+        x: 97
+        y: 243
+        width: 1786
+        height: 226
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,8 +184,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5e5367f689a9bca80800000000000000
-      internalID: -8445486696707508763
+      spriteID: ac89bd8132b2f5e50800000000000000
+      internalID: 6800201392093632714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossHealth_Preview
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 511
+        width: 1786
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20b410194bb3baba0800000000000000
+      internalID: -6076697625493419262
       vertices: []
       indices: 
       edges: []
@@ -176,7 +216,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 86efc605552a05c488f00329ae6ed242
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -184,12 +224,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":38.0,"y":28.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      Hit (38x28)_0: -7982368223760686067
-      Hit (38x28)_1: -8445486696707508763
+      BossHealthBar_0: -2313838572340273266
+      BossHealthBar_1: 2557461980713412998
+      BossHealthBar_2: -792899567622094532
+      BossHealthBar_3: -2002048896002541865
+      BossHealthBar_4: -7041644852017489511
+      BossHealth_Background: 6800201392093632714
+      BossHealth_Fill: -2596345464659068251
+      BossHealth_Preview: -6076697625493419262
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

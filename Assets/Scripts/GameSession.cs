@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using NUnit.Framework;
 
 public class GameSession : MonoBehaviour
 {
@@ -7,6 +8,14 @@ public class GameSession : MonoBehaviour
     [SerializeField] private int diamondCount = 0;
     public int DiamondCount => diamondCount;
     public event Action<int> OnDiamondCountChanged;
+
+    //Heart 
+    private int savedHealthUnits;
+
+    public int SavedHealthUnits => savedHealthUnits;
+
+    public bool HasSavedHealth { get; private set; }
+
 
     private void Awake()
     {
@@ -19,6 +28,17 @@ public class GameSession : MonoBehaviour
         Instance = this;
 
         DontDestroyOnLoad(gameObject);
+    }
+
+    public void SavePlayerHealth(int healUnits)
+    {
+        savedHealthUnits = healUnits;
+        HasSavedHealth = true;
+    }
+
+    public void ResetSavedHealth()
+    {
+        HasSavedHealth = false;
     }
 
     public void AddDiamond(int amount)
@@ -34,7 +54,7 @@ public class GameSession : MonoBehaviour
     }
     private void OnDestroy()
     {
-        if(Instance == this)
+        if (Instance == this)
         {
             Instance = null;
         }

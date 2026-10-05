@@ -47,6 +47,17 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     }
 
+    private void Start()
+    {
+        GameSession session = GameSession.Instance;
+        if (session != null && session.HasSavedHealth)
+        {
+            CurrentHealthUnits = Mathf.Clamp(session.SavedHealthUnits, 0, MaximumHealthUnits);
+
+        }
+        OnHealthChanged?.Invoke(CurrentHealthUnits);
+    }
+
     public void TakeDamage(int damage, float attackerPositionX)
     {
         if (isDead || damage <= 0 || Time.time < nextDamageTime)
@@ -103,6 +114,11 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName(deathStateName));
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f);
         yield return new WaitForSeconds(2f);
+
+        //Remove stored health
+        GameSession.Instance?.ResetSavedHealth();
+
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 

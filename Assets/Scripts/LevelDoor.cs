@@ -80,11 +80,20 @@ public class LevelDoor : MonoBehaviour
             "DoorIn",
             doorInStateName
         );
+        //Get player health when leaving scene
+        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+
+        if (playerHealth != null && GameSession.Instance != null)
+        {
+            GameSession.Instance.SavePlayerHealth(
+                playerHealth.CurrentHealthUnits
+            );
+        }
 
         SceneManager.LoadScene(targetSceneName);
     }
 
-private IEnumerator ArrivalSequence()
+    private IEnumerator ArrivalSequence()
     {
         isTransitioning = true;
 
