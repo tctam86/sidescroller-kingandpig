@@ -16,23 +16,47 @@ public class BossMovement : MonoBehaviour
     private Animator animator;
     private Rigidbody2D rb;
     private CapsuleCollider2D bodyColiider;
+    private BossHealth bossHealth;
 
     private Vector3 startingScale;
 
     private int moveDirection;
+    private float movementPauseEndTime;
+
+    private bool isDead;
+
+    public void PauseMovement(float duration)
+    {
+        movementPauseEndTime = Mathf.Max(movementPauseEndTime, Time.time + duration);
+        rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+        animator.SetBool("isRunning", false);
+    }
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         bodyColiider = GetComponent<CapsuleCollider2D>();
+        bossHealth = GetComponent<BossHealth>();
 
-        
+
         startingScale = transform.localScale;
     }
 
     private void FixedUpdate()
     {
+        if (bossHealth != null && bossHealth.IsDead)
+        {
+            isDead = true;
+        }
+
+        if (isDead)
+        {
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            animator.SetBool("isRunning", false);
+            return;
+        }
+
         Chase();
     }
 
@@ -43,6 +67,7 @@ public class BossMovement : MonoBehaviour
     }
     private void FlipSprite()
     {
+        
         if (Mathf.Abs(rb.linearVelocity.x) <= Mathf.Epsilon)
         {
             return;
@@ -66,7 +91,19 @@ public class BossMovement : MonoBehaviour
 
     private void Chase()
     {
+
+
+        if (Time.time < movementPauseEndTime)
+        {
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            animator.SetBool("isRunning", false);
+            return;
+        }
+
         if (player == null) { return; }
+
+        
+
         float distancetoPlayerX = Mathf.Abs(player.position.x - transform.position.x);
         if (distancetoPlayerX <= attackStopDistance)
         {
