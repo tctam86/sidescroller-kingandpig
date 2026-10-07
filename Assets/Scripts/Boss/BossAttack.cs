@@ -34,6 +34,8 @@ public class BossAttack : MonoBehaviour
             return;
         }
 
+        if (bossMovement != null && bossMovement.IsPhase2) { return; }
+
         Vector2 attackPosition = attackPoint != null ? attackPoint.position : transform.position;
         Collider2D playerCollider = Physics2D.OverlapCircle(attackPosition, attackRange, playerLayer);
 
@@ -44,6 +46,7 @@ public class BossAttack : MonoBehaviour
 
         nextAttackTime = Time.time + attackCooldown;
         attackResolved = false;
+        bossMovement?.PauseMovement(attackCooldown);
         animator.SetTrigger("Attack");
     }
 
@@ -55,8 +58,6 @@ public class BossAttack : MonoBehaviour
         }
 
         attackResolved = true;
-        bossMovement?.PauseMovement(attackCooldown);
-
         Vector2 attackPosition = attackPoint != null ? attackPoint.position : transform.position;
         Collider2D playerCollider = Physics2D.OverlapCircle(attackPosition, attackRange, playerLayer);
 

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4cdad72e99584945ab93c2699d8938f, type: 3}
   m_Name: BossConfig
   m_EditorClassIdentifier: Assembly-CSharp::BossConfig
-  maximumHeart: 1
+  maximumHeart: 2
   contactDamageUnits: 1
   attackDamageUnits: 1
   moveSpeed: 2
